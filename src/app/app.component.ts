@@ -12,11 +12,15 @@ import { TaskComponent } from "./task/task.component";
 })
 export class AppComponent {
   users = DUMMY_USERS;
-  name:string = 'Angular';
+  selectedUserId?: string;
+  //name?:string = DUMMY_USERS[0].name;
+
+  get selectedUser() {
+    return this.users.find(user => user.id === this.selectedUserId);
+  }
 
   onSelectUser(id: string) {
-    console.log('User selected:', id);
-
-    this.name = DUMMY_USERS.find(user => user.id === id)!.name;
+    this.selectedUserId = id;
+    //this.name = DUMMY_USERS.find(user => user.id === id)?.name;
   }
 }
