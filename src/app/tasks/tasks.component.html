@@ -2,16 +2,20 @@
     <header>
         <h2>{{ name }}'s Tasks</h2>
         <menu>
-            <button >Add Task</button>
+            <button>Add Task</button>
         </menu>
     </header>
 
     <ul>
         <li>
-            <app-task
-                name="Task 1"
-                description="This is the first task."
-                dueDate="2021-01-01" />
+            @for (task of selectedUserTasks; track task.id) {
+                <li>
+                    <app-task
+                    [title]="task.title"
+                    [summary]="task.summary"
+                     />
+                </li>
+            }
         </li>
     </ul>
 </section>

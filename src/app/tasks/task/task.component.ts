@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-task',
@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './task.component.css'
 })
 export class TaskComponent {
-  name: string = 'Task 1';
-  description: string = 'Description 1';
+  @Input({required: true}) title: string = 'SOME TITLE';
+  @Input({required: true}) summary: string = 'SOME SUMMARY';
   dueDate: string = '2021-12-31';
 
   onSelect() {
