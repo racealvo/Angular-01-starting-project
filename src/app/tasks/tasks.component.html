@@ -2,7 +2,7 @@
     <header>
         <h2>{{ name }}'s Tasks</h2>
         <menu>
-            <button>Add Task</button>
+            <button (click)="onAddTask()">Add Task</button>
         </menu>
     </header>
 
@@ -15,4 +15,6 @@
             }
         </li>
     </ul>
+
+    <app-newtask [addTaskIsVisible]="addTaskIsVisible" [task]="newTask" (addTask)="onAddTask()" (cancelTask)="onCancelTask()"/>
 </section>

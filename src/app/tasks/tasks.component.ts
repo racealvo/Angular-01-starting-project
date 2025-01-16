@@ -1,17 +1,32 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { TaskComponent } from "./task/task.component";
 import { Title } from '@angular/platform-browser';
+import { NewtaskComponent } from "../newtask/newtask.component";
+import { Task } from "./task/task.model";
+
+const templateTask:Task = {
+  id: 't',
+  userId: 'u',
+  dueDate: Date.now().toString(),
+  title: 'Ray Title ',
+  summary: 'Ray Summary '
+};
+
+let currcount = 11;
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewtaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
   @Input({required: true}) userId!: string;
   @Input({required: true}) name!: string;
+  addTaskIsVisible = false;
+  @Output() newTask: Task = templateTask;
+  
   tasks = [
     {
       id: 't1',
@@ -43,6 +58,32 @@ export class TasksComponent {
   }
 
   onCompleteTask(taskId: string) {
+    // Remove the task from the list of tasks
     this.tasks = this.tasks.filter(task => task.id !== taskId);
+  }
+
+  onAddTask() {
+    currcount++;
+    this.newTask = {...templateTask};
+    this.newTask.id += currcount.toString();
+    this.newTask.userId += ((Math.random()*6)+1).toString();
+    this.newTask.dueDate = Date.now().toString();
+    this.newTask.title += currcount.toString();
+    this.newTask.summary += currcount.toString();
+
+    this.addTaskIsVisible = true;
+
+    console.log(this.tasks);
+    console.log(this.newTask);
+    console.log(templateTask);
+  }
+
+  onSaveTask() {
+    this.addTaskIsVisible = false;
+    this.tasks.push(this.newTask);
+  }
+
+  onCancelTask() {
+    this.addTaskIsVisible = false;
   }
 }
