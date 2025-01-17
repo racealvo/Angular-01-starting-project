@@ -1,7 +1,7 @@
 import { Component, Input, Output } from '@angular/core';
 import { TaskComponent } from "./task/task.component";
 import { Title } from '@angular/platform-browser';
-import { Task } from "./task/task.model";
+import { type NewTaskData, Task } from "./task/task.model";
 import { NewTaskComponent } from "./new-task/new-task.component";
 
 @Component({
@@ -53,5 +53,21 @@ export class TasksComponent {
 
   onStartAddTask() {
     this.isAddingTask = true;
+  }
+
+  onCancelAddTask(){
+    this.isAddingTask = false;
+  }
+
+  onAddTask(taskData:NewTaskData) {
+    this.tasks.push({
+      id: new Date().getTime().toString(),
+      userId: this.userId,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.dueDate,
+    });
+
+    this.isAddingTask = false;
   }
 }
